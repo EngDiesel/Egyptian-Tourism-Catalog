@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Item</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/app.css')}}">
+</head>
+
+<body>
+
+    <!-- Start Navbar -->
+    <nav class="card">
+        <div class="container">
+          <h1 class="text-upper display-inline-block">
+            <a href="/" style="background: none; color: #242474">Catalog App</a>
+          </h1>
+          <a href="" class="login-link float-right display-block">Logout</a>
+          <div class="clear-fix"></div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+
+    <div class="container">
+      <div class="card form">
+              <h4 class="text-upper">edit Item</h4>
+              <form method="POST">
+                  <label for="itemName">Item Name</label>
+                  <input type="text" name="name" id="itemName" placeholder="{{item.name}}">
+
+                  <br>
+
+                  <label for="description">Description</label>
+                  <textarea name="description" id="description" placeholder="{{item.description}}"></textarea>
+
+                  <br>
+
+                  <label for="picture">Picture Link</label>
+                  <input name="picture" type="text" id="picture" placeholder="{{item.picture}}">
+
+                  <br>
+
+                  <label for="category">Category</label>
+                  <select name="category_id" id="category">
+                      {% for categ in categories: %}
+                        <option value="{{categ.id}}">{{categ.name}}</option>
+                      {% endfor %}
+                  </select>
+                  <br>
+                  <button type="submit" class="btn-green text-upper">Update {{item.name}}</button>
+                  <button type="reset" class="btn-red text-upper">
+                    <a style="color: white" href="/categories/{{item.category_id}}/items/{{item.id}}">Cancel</a>
+                  </button>
+
+              </form>
+          </div>
+    </div>
+
+    <!-- Start Footer -->
+    <footer class="card text-center">
+        <div class="container">
+            Copyrights <a href="http://www.github.com/EngDiesel" class="text-upper">Mostafa Yasin</a> &copy; 2018
+        </div>
+    </footer>
+    <!-- End Footer -->
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Item Page</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/app.css')}}">
+</head>
+
+<body>
+    <!-- Start Navbar -->
+    <nav class="card">
+        <div class="container">
+            <h1 class="text-upper display-inline-block">
+            <a href="/" style="background: none; color: #242474">
+              Catalog App
+            </a>
+          </h1>
+          {% if not login_session['username'] %}
+            <a href="/login" class="login-link float-right display-block">Login</a>
+            {{login_session['username']}}
+          {% else %}
+            <a href="/disconnect" class="login-link float-right display-block">Logout</a>
+            {{login_session['username']}}
+          {% endif %}
+            <div class="clear-fix"></div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert">
+      {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+<!-- content -->
+    <div class="container">
+        <div class="card item">
+            <div class="img-wrapper">
+                <img style="width: 100%; height: 100%" src="{{item.picture}}">
+            </div>
+
+            <div class="info">
+                <h3 class="text-upper">{{item.name}} <span style="color: #666; font-style: italic; font-size:16px">
+                   - <a href="/categories/{{item.category_id}}">({{item.category.name}})</a></span> </h3>
+                <hr style="border-color: dimgrey">
+                <p>
+                    {{item.description}}
+                </p>
+
+                {% if 'username' in login_session %}
+                <a href="/categories/{{item.category_id}}/items/{{item.id}}/edit">edit</a>
+                <span style="color: #666">|</span>
+                <a href="/categories/{{item.category_id}}/items/{{item.id}}/delete" style="color: red">delete</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="clear-fix"></div>
+
+    <!-- Start Footer -->
+    <footer class="card text-center">
+        <div class="container">
+            Copyrights <a href="http://www.github.com/EngDiesel" class="text-upper">Mostafa Yasin</a> &copy; 2018
+        </div>
+    </footer>
+    <!-- End Footer -->
+</body>
+
+</html>

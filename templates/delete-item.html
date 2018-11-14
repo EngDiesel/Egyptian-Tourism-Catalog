@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Item</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/app.css')}}">
+</head>
+
+
+<body>
+    <!-- Start Navbar -->
+    <nav class="card">
+        <div class="container">
+            <h1 class="text-upper display-inline-block">Catalog App</h1>
+            <a href="" class="login-link float-right display-block">Logout</a>
+            <div class="clear-fix"></div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container">
+        <div class="card">
+            <h4 class="text-upper">Delete Item</h4>
+            <form method="post">
+                <p>
+                    Are You Sure You Want To Delete {{item.name}} ?
+                </p>
+
+                <button type="submit" class="btn-red">Delete</button>
+                <button type="reset" class="btn-green" style="margin:0">
+                  <a href="/categories/{{item.category_id}}/items/{{item.id}}" style="color: white">Cancel</a>
+                </button>
+
+            </form>
+        </div>
+    </div>
+    <!-- Start Footer -->
+    <footer class="card text-center">
+        <div class="container">
+            Copyrights <a href="http://www.github.com/EngDiesel" class="text-upper">Mostafa Yasin</a> &copy; 2018
+        </div>
+    </footer>
+    <!-- End Footer -->
+</body>
+
+</html>

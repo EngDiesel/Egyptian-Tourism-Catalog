@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+ Mostafa Yasin 2018
+ This project is the second one for
+ Udacity's Full-Stack Web Developer Nanodegree.
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <title>Catalog</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/app.css')}}">
+</head>
+
+<body>
+    <!-- Start Navbar -->
+    <nav class="card">
+        <div class="container">
+          <h1 class="text-upper display-inline-block"><a href="/" style="background: none; color: #242474">Catalog App</a></h1>
+
+          {% if not login_session['username'] %}
+            <a href="/login" class="login-link float-right display-block">Login</a>
+            {{login_session['username']}}
+          {% else %}
+            <a href="/disconnect" class="login-link float-right display-block">Logout</a>
+            {{login_session['username']}}
+          {% endif %}
+
+          <div class="clear-fix"></div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert">
+      {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <!-- Start Categories -->
+    <div class="container">
+
+        <div class="card categories float-left">
+            <div class="card-header">
+                <h3 class="text-upper">Categories</h3>
+            </div>
+
+            <ul>
+              {% for obj in categories: %}
+              <li>
+                  <a href='/categories/{{obj.id}}' class="category">
+                    <div class="overlay"></div>
+                    <img src='{{obj.picture}}' alt='{{obj.name}}'>
+                    <h4 class="text-center text-upper">{{obj.name}} </h4>
+                  </a>
+              </li>
+              {% endfor %}
+            </ul>
+        </div>
+        <!-- End Categories -->
+
+        <!-- Start Latest-Items -->
+        <div class="card latest-items float-left">
+            <div class="card-header">
+                <h3 class="text-upper">Latest Items</h3>
+            </div>
+            <ul>
+                <li style="margin: 10px 0">
+                  {% if login_session['username'] %}
+                    <a href="/addItem" style="color: white; background-color: green; border-radius: 5px; padding: 5px 10px;">
+                      &plus; add item
+                    </a>
+                  {% endif %}
+
+              </li>
+                {% for item in latestItems: %}
+                <li style="display: inline-block; float: left; background-color: white; border-radius: 5px; margin-right: 5px">
+                  <a href="/categories/{{item.category_id}}/items/{{item.id}}">{{item.name}}</a></li>
+                {% endfor %}
+                <div class="clear-fix"></div>
+            </ul>
+        </div>
+        <div class="clear-fix"></div>
+    </div>
+    <!-- End Latest-Items -->
+
+    <!-- Start Footer -->
+    <footer class="card text-center">
+        <div class="container">
+            Copyrights <a href="http://www.github.com/EngDiesel" class="text-upper">Mostafa Yasin</a> &copy; 2018
+        </div>
+    </footer>
+    <!-- End Footer -->
+</body>
+
+</html>
