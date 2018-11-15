@@ -9,14 +9,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Catalog</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/app.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
 </head>
 
 <body>
     <!-- Start Navbar -->
     <nav class="card">
         <div class="container">
-          <h1 class="text-upper display-inline-block"><a href="/" style="background: none; color: #242474">Catalog App</a></h1>
+          <h1 class="text-upper display-inline-block"><a href="/" class="logo">Catalog App</a></h1>
 
           {% if not login_session['username'] %}
             <a href="/login" class="login-link float-right display-block">Login</a>
@@ -30,16 +30,18 @@
         </div>
     </nav>
     <!-- End Navbar -->
-
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert">
-      {{message}}
+    <div class="container">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="notification">
+        {{message}}
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
     </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
+
     <!-- Start Categories -->
     <div class="container">
 
@@ -68,16 +70,13 @@
                 <h3 class="text-upper">Latest Items</h3>
             </div>
             <ul>
-                <li style="margin: 10px 0">
                   {% if login_session['username'] %}
-                    <a href="/addItem" style="color: white; background-color: green; border-radius: 5px; padding: 5px 10px;">
+                    <a href="/addItem" class="add-item-btn btn-green text-upper">
                       &plus; add item
                     </a>
                   {% endif %}
-
-              </li>
                 {% for item in latestItems: %}
-                <li style="display: inline-block; float: left; background-color: white; border-radius: 5px; margin-right: 5px">
+                <li style="" class="text-upper latest-items">
                   <a href="/categories/{{item.category_id}}/items/{{item.id}}">{{item.name}}</a></li>
                 {% endfor %}
                 <div class="clear-fix"></div>

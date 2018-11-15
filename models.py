@@ -16,6 +16,7 @@ from passlib.apps import custom_app_context as pwd_context
 # Base Instance.
 Base = declarative_base()
 
+
 class User(Base):
     __tablename__ = "user"
 
@@ -25,14 +26,11 @@ class User(Base):
     username = Column(String(32), index=True)
     password_hash = Column(String(64))
 
-
     def hash_password(self, password):
         self.password_hash = pwd_context.hash(password)
 
-
     def verify_password(self, password):
         return pwd_context.verify(password, self.password_hash)
-
 
     @property
     def serialize(self):
@@ -58,6 +56,7 @@ class Category(Base):
             'picture': self.picture
         }
 
+
 class Item(Base):
     __tablename__ = 'item'
 
@@ -72,7 +71,6 @@ class Item(Base):
     category_id = Column(Integer, ForeignKey(Category.id))
     category = relationship(Category)
 
-
     @property
     def serialize(self):
         return {
@@ -80,6 +78,7 @@ class Item(Base):
             'name': self.name,
             'picture': self.picture
         }
+
 
 # Create the database
 engine = create_engine('sqlite:///catalog.db')
