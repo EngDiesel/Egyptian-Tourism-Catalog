@@ -499,37 +499,20 @@ def deleteItem(category_id, item_id):
         return redirect('/categories/' + str(category_id))
 
 
-@app.route('/categories/<int:category_id>/items/new', methods=['POST'])
-def addItemJson(category_id):
-    # Add a new Item.
-    session = DBSession()
-    name = request.json.get('name')
-    picture = request.json.get('picture')
-    description = request.json.get('description')
-    user_id = request.json.get('user_id')
-
-    item = Item(
-                name=name,
-                picture=picture,
-                description=description,
-                user_id=user_id, category_id=category_id)
-    session.add(item)
-    session.commit()
-    return redirect('/categories')
-
-
 # =======================================================================
 # ======================== Test Operations ==============================
 # =======================================================================
 # this route to delete something.
-@app.route('/del')
-def deleteCat():
-    session = DBSession()
-    obj = session.query(Item).filter_by(name='hello').first()
-    session.delete(obj)
-    session.commit()
-    return redirect('/categories/3')
-
+# @app.route('/del')
+# def deleteCat():
+#     session = DBSession()
+#     items = session.query(Category).all()
+#     for item in items:
+#         session.delete(item)
+#         session.commit()
+#
+#     return redirect('/categories')
+#
 
 # =======================================================================
 # =========================== API ENDPOINTS =============================
@@ -560,6 +543,27 @@ def jsonItem(category_id, item_id):
     session = DBSession()
     item = session.query(Item).filter_by(id=item_id).first()
     return jsonify(item=[item.serialize])
+
+# =====================================================================
+# =====================================================================
+# =====================================================================
+@app.route('/categories/new', methods=['POST'])
+def addItemJson():
+    # Add a new Item.
+    session = DBSession()
+    name = request.json.get('name')
+    picture = request.json.get('picture')
+    description = request.json.get('description')
+    user_id = request.json.get('user_id')
+
+    category = Category(
+                name=name,
+                picture=picture,
+                description=description)
+
+    session.add(category)
+    session.commit()
+    return redirect('/categories')
 
 
 if __name__ == '__main__':

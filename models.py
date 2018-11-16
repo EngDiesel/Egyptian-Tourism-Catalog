@@ -47,6 +47,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
     picture = Column(String(250))
+    # description = Column(String(300))
 
     @property
     def serialize(self):
