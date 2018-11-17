@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/1-styles.css')}}">
     <title>{{category.name}}</title>
 </head>
 
@@ -23,6 +23,7 @@
             <div class="clear-fix"></div>
         </div>
     </nav>
+    <div class="container">
     <!-- End Navbar -->
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -33,6 +34,7 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
+    </div>
 
     <!--
       We have the variables
@@ -66,7 +68,6 @@
             <div class="card-header">
                 <h2 class="text-center text-upper">{{category.name}}</h2>
             </div>
-
             <ul>
               {% for item in items: %}
               <li><a href="/categories/{{item.category_id}}/items/{{item.id}}">{{item.name}}</a></li>

@@ -47,7 +47,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
     picture = Column(String(250))
-    # description = Column(String(300))
+    description = Column(String)
 
     @property
     def serialize(self):
@@ -82,5 +82,5 @@ class Item(Base):
 
 
 # Create the database
-engine = create_engine('sqlite:///catalog.db')
+engine = create_engine('sqlite:///item-catalog.db')
 Base.metadata.create_all(engine)

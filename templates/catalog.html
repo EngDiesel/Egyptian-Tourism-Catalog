@@ -9,14 +9,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Catalog</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/1-styles.css')}}">
 </head>
 
 <body>
     <!-- Start Navbar -->
     <nav class="card">
         <div class="container">
-          <h1 class="text-upper display-inline-block"><a href="/" class="logo">Catalog App</a></h1>
+          <h1 class="text-upper display-inline-block"><a href="/" class="logo">Egyptian Tourism Catalog</a></h1>
 
           {% if not login_session['username'] %}
             <a href="/login" class="login-link float-right display-block">Login</a>

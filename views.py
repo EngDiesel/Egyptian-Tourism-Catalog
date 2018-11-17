@@ -32,7 +32,7 @@ import json
 
 # setting things up...
 app = Flask(__name__)
-engine = create_engine('sqlite:///catalog.db')
+engine = create_engine('sqlite:///item-catalog.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 
@@ -66,13 +66,13 @@ def createUser(login_session):
     session.add(newUser)
     session.commit()
 
-    user = session.query(User).filter_by(email=login_session['email']).one()
+    user = session.query(User).filter_by(email=login_session['email']).first()
     return user.id
 
 
 def getUserInfo(user_id):
     session = DBSession()
-    user = session.query(User).filter_by(id=user_id).one()
+    user = session.query(User).filter_by(id=user_id).first()
     return user
 
 
@@ -80,8 +80,11 @@ def getUserID(email):
     session = DBSession()
 
     try:
-        user = session.query(User).filter_by(email=email).one()
-        return user.id
+        user = session.query(User).filter_by(email=email).first()
+        if user:
+            return user.id
+        else:
+            return None
     except 'error':
         return None
 
@@ -503,16 +506,16 @@ def deleteItem(category_id, item_id):
 # ======================== Test Operations ==============================
 # =======================================================================
 # this route to delete something.
-# @app.route('/del')
-# def deleteCat():
-#     session = DBSession()
-#     items = session.query(Category).all()
-#     for item in items:
-#         session.delete(item)
-#         session.commit()
-#
-#     return redirect('/categories')
-#
+@app.route('/del')
+def deleteCat():
+    session = DBSession()
+    items = session.query(Category).all()
+    for item in items:
+        if 'test' in item.name:
+            session.delete(item)
+            session.commit()
+    return redirect('/categories')
+
 
 # =======================================================================
 # =========================== API ENDPOINTS =============================
@@ -548,9 +551,10 @@ def jsonItem(category_id, item_id):
 # =====================================================================
 # =====================================================================
 @app.route('/categories/new', methods=['POST'])
-def addItemJson():
+def addCategoryJson():
     # Add a new Item.
     session = DBSession()
+    print "session created."
     name = request.json.get('name')
     picture = request.json.get('picture')
     description = request.json.get('description')
@@ -559,11 +563,11 @@ def addItemJson():
     category = Category(
                 name=name,
                 picture=picture,
-                description=description)
+                description=description, user_id=user_id)
 
     session.add(category)
     session.commit()
-    return redirect('/categories')
+    return redirect('/', code=200)
 
 
 if __name__ == '__main__':

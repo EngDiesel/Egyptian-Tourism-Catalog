@@ -4,8 +4,9 @@
 }
 
 body {
-  background: url(../images/bg-1.jpg);
+  background: url(../images/bg-2.jpg);
   background-size: cover;
+  background-attachment: fixed;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -100,7 +101,8 @@ footer {
 }
 .card.categories-min .category img {
   width: 100% !important;
-  height: 220%;
+  height: 300%;
+  margin-top: -50px;
 }
 
 .card.categories-min .category h4 {
@@ -119,13 +121,10 @@ footer {
 }
 .card.item {
   padding: 20px 0 10px 40px;
-  height: 400px;
 }
 .card.item .img-wrapper {
   display: inline-block;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
+  max-width: 250px;
   overflow: hidden;
   float: left;
 }
